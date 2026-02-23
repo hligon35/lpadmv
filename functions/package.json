@@ -1,0 +1,21 @@
+{
+  "name": "functions",
+  "private": true,
+  "main": "index.js",
+  "type": "commonjs",
+  "engines": {
+    "node": "18"
+  },
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "typecheck": "node --check index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "firebase-functions": "^5.1.0",
+    "stripe": "^16.0.0"
+  },
+  "devDependencies": {
+    "firebase-tools": "^13.0.0"
+  }
+}

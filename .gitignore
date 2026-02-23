@@ -1,0 +1,19 @@
+node_modules/
+.next/
+dist/
+.expo/
+.firebase/
+firebase-debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+.env*
+.env.local
+.env.*.local
+.env.*
+coverage/
+
+# Generated pricing outputs
+docs/pricing.stripe.json

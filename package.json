@@ -1,0 +1,25 @@
+{
+  "name": "lpa-dmv",
+  "private": true,
+  "dependencies": {
+    "stripe": "^16.0.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "functions"
+  ],
+  "scripts": {
+    "dev:web": "npm --workspace apps/web run dev",
+    "dev:mobile": "npm --workspace apps/mobile run start",
+    "dev:functions": "npm --workspace functions run serve",
+    "pricing:extract": "python scripts/extract_pricing.py",
+    "pricing:build-catalog": "python scripts/build_pricing_catalog_ts.py",
+    "stripe:sync-pricing": "node scripts/sync_pricing_to_stripe.mjs",
+    "lint": "npm --workspace apps/web run lint",
+    "typecheck": "npm --workspace apps/web run typecheck && npm --workspace functions run typecheck"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
