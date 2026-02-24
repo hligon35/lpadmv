@@ -10,6 +10,8 @@ type UserDoc = {
   role?: 'athlete' | 'coach' | 'admin';
   stripeCustomerId?: string;
   stripeConnectedAccountId?: string; // for coaches
+  // Optional: custom claims / access control fields
+  isAdmin?: boolean;
   createdAt: FirebaseFirestore.Timestamp;
   updatedAt: FirebaseFirestore.Timestamp;
 }
@@ -19,38 +21,54 @@ type UserDoc = {
 
 ```ts
 type BookingDoc = {
-  athleteUid: string;
-  athleteEmail?: string;
+  // Who
+  athleteUid?: string; // optional until Auth is wired end-to-end
+  customerEmail?: string;
   coachUid?: string;
-  coachConnectedAccountId?: string;
 
-  programKey: string;
-  frequencyPerWeek: 1 | 2 | 3;
-  commitmentMonths: 1 | 2 | 3;
-
-  requestedTimes: string[]; // ISO strings or human-readable
-  notes?: string;
-
-  amountCents: number;
-  currency: 'usd';
-  stripePaymentIntentId: string;
-  stripeCustomerId?: string;
-
-  status: 'pending_approval' | 'approved' | 'declined' | 'canceled';
-
-  approval?: {
-    decidedByUid: string;
-    decidedAt: FirebaseFirestore.Timestamp;
-    reason?: string;
+  // What (pricing selection)
+  selection: {
+    programKey: string;
+    frequencyPerWeek: 1 | 2 | 3;
+    commitmentMonths: 1 | 2 | 3;
   };
 
+  // When (up to 3 preferred session times)
+  preferredTimes: string[]; // ISO strings
+  finalStartTime?: string; // ISO
+  finalEndTime?: string; // ISO
+
+  // Money
+  amountCents: number;
+  currency: 'usd';
+
+  // Stripe (Connect + manual capture)
+  stripe: {
+    paymentIntentId: string;
+    connectedAccountId?: string | null;
+    captureMethod: 'manual';
+    status?: string;
+    lastWebhookType?: string;
+    lastWebhookAt?: FirebaseFirestore.Timestamp;
+    capturedAt?: FirebaseFirestore.Timestamp;
+    captureStatus?: string;
+  };
+
+  status:
+    | 'pending_approval'
+    | 'approved'
+    | 'declined'
+    | 'canceled'
+    | 'capture_failed';
+
+  sessionId?: string;
   calendar?: {
     googleCalendarUrl?: string;
-    appleCalendarIcsUrl?: string;
   };
 
   createdAt: FirebaseFirestore.Timestamp;
-  updatedAt: FirebaseFirestore.Timestamp;
+  approvedAt?: FirebaseFirestore.Timestamp;
+  declinedAt?: FirebaseFirestore.Timestamp;
 }
 ```
 
@@ -58,19 +76,31 @@ type BookingDoc = {
 
 ```ts
 type SessionDoc = {
-  athleteUid: string;
-  coachUid: string;
+  athleteUid?: string;
+  coachUid?: string;
   bookingId: string;
 
-  startTime: FirebaseFirestore.Timestamp;
-  endTime: FirebaseFirestore.Timestamp;
+  startTime: string; // ISO
+  endTime: string; // ISO
   location?: string;
 
   calendar?: {
     googleCalendarUrl?: string;
-    appleCalendarIcsUrl?: string;
+    appleIcsText?: string; // scaffold stores inline; production can store in Storage and link
   };
 
   createdAt: FirebaseFirestore.Timestamp;
+}
+```
+
+## `pricing/{docId}` (optional)
+
+You can optionally store pricing in Firestore if you want dynamic updates.
+
+```ts
+type PricingDoc = {
+  sourcePdf?: string;
+  generatedAt?: FirebaseFirestore.Timestamp;
+  data: unknown; // full extracted catalog JSON
 }
 ```

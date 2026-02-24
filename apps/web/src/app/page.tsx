@@ -1,113 +1,90 @@
-import Image from "next/image";
+import { ButtonLink } from "../components/ui/Button";
+import { Card } from "../components/ui/Card";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="space-y-12">
+      <section className="rounded-lpa border border-lpa-cardBorder bg-gradient-to-br from-lpa-primary/25 via-lpa-bg to-lpa-bg p-8">
+        <div className="max-w-3xl">
+          <div className="text-sm font-semibold text-lpa-accent">DMV</div>
+          <h1 className="font-display mt-3 text-5xl leading-none sm:text-6xl">
+            LEAD. TRAIN. PREPARE.
+          </h1>
+          <p className="mt-4 text-base text-lpa-mutedFg">
+            Life Prep Academy develops athletes and leaders through intentional training, accountability, and community.
+            Whether you’re sharpening fundamentals or preparing for the next level, we build habits that translate.
+          </p>
+          <p className="mt-3 max-w-3xl text-sm text-lpa-mutedFg">
+            Expect coaching that’s clear, energetic, and detail-driven—focused on technique, effort, and mindset.
+            The goal is simple: leave every session more prepared than you arrived.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <ButtonLink href="/book" variant="accent">
+              Book Training
+            </ButtonLink>
+            <ButtonLink href="/about" variant="ghost">
+              Learn More
+            </ButtonLink>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <section>
+        <h2 className="font-display text-2xl font-semibold">
+          Mission
+        </h2>
+        <p className="mt-2 max-w-3xl text-lpa-mutedFg">
+          We build confident athletes with a leadership-first mindset—on the field, in the classroom, and in life.
+        </p>
+        <p className="mt-3 max-w-3xl text-lpa-mutedFg">
+          Our training connects performance and character: consistent habits, strong communication, and the discipline to do the
+          small things right. We want athletes who lead by example and compete with purpose.
+        </p>
+      </section>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+      <section>
+        <h2 className="font-display text-2xl font-semibold">
+          Training Highlights
+        </h2>
+        <div className="mt-4 grid gap-4 md:grid-cols-3">
+          <Card>
+            <div className="text-sm font-semibold text-lpa-accent">Position</div>
+            <div className="mt-1 text-lg font-semibold">Skill Development</div>
+            <p className="mt-2 text-sm text-lpa-mutedFg">
+              Footwork, IQ, technique, and game-speed reps—built from the ground up with coaching you can repeat on your own.
+            </p>
+          </Card>
+          <Card>
+            <div className="text-sm font-semibold text-lpa-accent">Strength</div>
+            <div className="mt-1 text-lg font-semibold">Power + Durability</div>
+            <p className="mt-2 text-sm text-lpa-mutedFg">
+              Progressive programming with proper coaching—movement quality first, then load and speed.
+            </p>
+          </Card>
+          <Card>
+            <div className="text-sm font-semibold text-lpa-accent">Leadership</div>
+            <div className="mt-1 text-lg font-semibold">Mindset + Accountability</div>
+            <p className="mt-2 text-sm text-lpa-mutedFg">
+              Character, discipline, and confidence training—how to respond, reset, and keep showing up.
+            </p>
+          </Card>
+        </div>
+      </section>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <section className="rounded-lpa border border-lpa-cardBorder bg-lpa-card p-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <div className="text-sm font-semibold text-lpa-accent">Ready to get started?</div>
+            <div className="mt-1 text-lg font-semibold">Book your first session today.</div>
+            <div className="mt-1 text-sm text-lpa-mutedFg">
+              Choose a package, request your preferred times, and we’ll follow up after approval with confirmation details.
+            </div>
+          </div>
+          <ButtonLink href="/book" variant="accent">
+            Book Training
+          </ButtonLink>
+        </div>
+      </section>
+    </div>
   );
 }

@@ -23,7 +23,7 @@ import type { PricingExtracted } from './types';
 export const pricingCatalog: PricingExtracted = """
 
     ts += json.dumps(payload, indent=2, ensure_ascii=False)
-    ts += "\n as const;\n"
+    ts += " as const;\n"
 
     out_ts.parent.mkdir(parents=True, exist_ok=True)
     out_ts.write_text(ts, encoding="utf-8")

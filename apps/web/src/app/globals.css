@@ -3,31 +3,51 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+  /* Brand palette (from lpadmvLogo.PNG) */
+  --lpa-primary: 114 32 110; /* #72206E */
+  --lpa-secondary: 136 94 42; /* #885E2A */
+  --lpa-accent: 253 199 42; /* #FDC72A */
+  --lpa-black: 0 0 0;
+  --lpa-white: 255 255 255;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  /* Semantic */
+  --lpa-bg: 0 0 0;
+  --lpa-fg: 255 255 255;
+  --lpa-muted-fg: 200 200 200;
+  --lpa-card: 18 18 18;
+  --lpa-card-border: 40 40 40;
+
+  /* Radii */
+  --lpa-radius-sm: 10px;
+  --lpa-radius-md: 14px;
+  --lpa-radius-lg: 18px;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: rgb(var(--lpa-fg));
+  background: rgb(var(--lpa-bg));
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .h-18 {
+    height: 4.5rem;
+  }
+
+  .w-18 {
+    width: 4.5rem;
+  }
+}
+
+@layer components {
+  .container-pad {
+    @apply mx-auto w-full max-w-6xl px-4;
   }
 }
