@@ -6,7 +6,7 @@ export default function WorkoutTab() {
     <View style={styles.container}>
       <Text style={styles.title}>WORKOUT</Text>
       <Text style={styles.subtitle}>
-        Workout programming scaffold. Populate from Firestore collection `workouts`.
+        Training plans built for performance—strength, speed, durability, and recovery with purpose.
       </Text>
     </View>
   );

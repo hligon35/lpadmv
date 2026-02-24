@@ -18,16 +18,10 @@ export function SiteFooter() {
               <div>Leadership + Athletic Development</div>
             </div>
           </div>
-          <div className="flex gap-4">
-            <a className="hover:text-lpa-fg" href="#" aria-label="Instagram">
-              Instagram
-            </a>
-            <a className="hover:text-lpa-fg" href="#" aria-label="Facebook">
-              Facebook
-            </a>
-            <a className="hover:text-lpa-fg" href="#" aria-label="TikTok">
-              TikTok
-            </a>
+          <div className="flex gap-4 text-lpa-mutedFg">
+            <span>Instagram</span>
+            <span>Facebook</span>
+            <span>TikTok</span>
           </div>
         </div>
       </div>

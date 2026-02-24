@@ -19,7 +19,7 @@ export default function HomeTab() {
       </Link>
 
       <Text style={[styles.note, { color: scheme === 'dark' ? '#BBBBBB' : '#444444' }]}>
-        Scaffold: add Firebase Auth, drill/workout content, and Stripe confirmations.
+        Tap Book Training to request a session.
       </Text>
     </View>
   );

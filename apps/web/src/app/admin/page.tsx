@@ -72,7 +72,7 @@ export default function AdminPage() {
           <div className="text-sm font-semibold text-lpa-accent">Pending</div>
           <div className="mt-2 text-3xl font-semibold">{count}</div>
           <div className="mt-1 text-sm text-lpa-mutedFg">
-            This scaffold reads Firestore directly; production should require Firebase Auth + admin claims.
+            Approve captures payment and sends confirmation. Decline releases the authorization and notifies the athlete.
           </div>
         </Card>
       </section>

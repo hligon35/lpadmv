@@ -6,7 +6,7 @@ export default function MerchTab() {
     <View style={styles.container}>
       <Text style={styles.title}>MERCH</Text>
       <Text style={styles.subtitle}>
-        Merch storefront scaffold. Integrate Stripe products or Shopify later.
+        Official Life Prep Academy gear and apparel.
       </Text>
     </View>
   );

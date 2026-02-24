@@ -44,10 +44,6 @@ export default function BookTab() {
       if (!res.ok) throw new Error(await res.text());
       const json = await res.json();
       Alert.alert('Booking submitted', `Pending approval. Booking: ${json.bookingId}`);
-
-      // Scaffold note:
-      // In production, use @stripe/stripe-react-native to confirm the PaymentIntent clientSecret returned here,
-      // then capture after admin approval.
     } catch (e: any) {
       Alert.alert('Error', e?.message || 'Could not create booking');
     }
@@ -57,7 +53,7 @@ export default function BookTab() {
     <View style={styles.container}>
       <Text style={styles.title}>BOOK</Text>
       <Text style={styles.subtitle}>
-        Pricing is based off strength of the commitment!
+        Choose your program and commitment to estimate your total.
       </Text>
 
       <View style={styles.card}>
@@ -73,10 +69,6 @@ export default function BookTab() {
         >
           <Text style={[styles.ctaText, { color: Colors.lpa.black }]}>Request Booking</Text>
         </Pressable>
-
-        <Text style={[styles.note, { color: scheme === 'dark' ? '#BBBBBB' : '#444444' }]}>
-          This screen is a scaffold: replace the hardcoded email, add date/time pickers, and confirm PaymentIntents with Stripe.
-        </Text>
       </View>
     </View>
   );

@@ -8,11 +8,41 @@ import { formatUsdFromCents } from '../../lib/money';
 import { Input } from '../../components/ui/Input';
 
 type BookingDraft = PricingSelection & {
-  preferred1?: string;
-  preferred2?: string;
-  preferred3?: string;
+  preferredDays: Array<
+    'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat' | 'Sun'
+  >;
+  preferredTimesByDay: Partial<
+    Record<'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat' | 'Sun', string>
+  >;
   customerEmail: string;
 };
+
+const DAY_OPTIONS: Array<{ key: BookingDraft['preferredDays'][number]; label: string }> = [
+  { key: 'Mon', label: 'Mon' },
+  { key: 'Tue', label: 'Tue' },
+  { key: 'Wed', label: 'Wed' },
+  { key: 'Thu', label: 'Thu' },
+  { key: 'Fri', label: 'Fri' },
+  { key: 'Sat', label: 'Sat' },
+  { key: 'Sun', label: 'Sun' },
+];
+
+function buildHalfHourTimes(startHour = 6, endHour = 21) {
+  const options: Array<{ value: string; label: string }> = [];
+  for (let hour = startHour; hour <= endHour; hour++) {
+    for (const minute of [0, 30] as const) {
+      if (hour === endHour && minute > 0) continue;
+      const hh = String(hour).padStart(2, '0');
+      const mm = String(minute).padStart(2, '0');
+      const value = `${hh}:${mm}`;
+      const hour12 = ((hour + 11) % 12) + 1;
+      const ampm = hour < 12 ? 'AM' : 'PM';
+      const label = `${hour12}:${mm} ${ampm}`;
+      options.push({ value, label });
+    }
+  }
+  return options;
+}
 
 export default function BookPage() {
   const programOptions = pricingCatalog.catalog.programOptions;
@@ -21,8 +51,10 @@ export default function BookPage() {
 
   const [draft, setDraft] = useState<BookingDraft>({
     programKey: programOptions[0]!.value,
-    frequencyPerWeek: freqOptions[0]!.value,
+    frequencyPerWeek: '' as any,
     commitmentMonths: commitmentOptions[0]!.value,
+    preferredDays: [],
+    preferredTimesByDay: {},
     customerEmail: '',
   });
 
@@ -49,13 +81,20 @@ export default function BookPage() {
     setStatus('submitting');
     setResult(null);
 
+    const preferredTimes = draft.preferredDays
+      .map((day) => {
+        const time = draft.preferredTimesByDay[day];
+        return time ? `${day} ${time}` : null;
+      })
+      .filter(Boolean);
+
     try {
       const res = await fetch('/api/bookings/create', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
           ...draft,
-          preferredTimes: [draft.preferred1, draft.preferred2, draft.preferred3].filter(Boolean),
+          preferredTimes,
         }),
       });
 
@@ -126,8 +165,23 @@ export default function BookPage() {
               <select
                 className="mt-2 w-full rounded-lpa border border-lpa-cardBorder bg-lpa-bg px-3 py-2"
                 value={draft.frequencyPerWeek}
-                onChange={(e) => setDraft((d) => ({ ...d, frequencyPerWeek: Number(e.target.value) as any }))}
+                onChange={(e) => {
+                  const next = e.target.value ? (Number(e.target.value) as any) : ('' as any);
+                  setDraft((d) => {
+                    if (!next) {
+                      return { ...d, frequencyPerWeek: next, preferredDays: [], preferredTimesByDay: {} };
+                    }
+
+                    const limitedDays = d.preferredDays.slice(0, Number(next));
+                    const preferredTimesByDay = { ...d.preferredTimesByDay };
+                    for (const day of Object.keys(preferredTimesByDay) as Array<keyof typeof preferredTimesByDay>) {
+                      if (!limitedDays.includes(day as any)) delete preferredTimesByDay[day];
+                    }
+                    return { ...d, frequencyPerWeek: next, preferredDays: limitedDays, preferredTimesByDay };
+                  });
+                }}
               >
+                <option value="">Select frequency…</option>
                 {freqOptions.map((o) => (
                   <option key={o.value} value={o.value}>
                     {o.label}
@@ -161,12 +215,83 @@ export default function BookPage() {
 
           <div className="mt-6">
             <h3 className="text-lg font-semibold">Preferred Session Times</h3>
-            <p className="mt-1 text-sm text-lpa-mutedFg">Pick up to 3 preferred times. (You’ll get a confirmation after approval.)</p>
-            <div className="mt-3 grid gap-3 sm:grid-cols-3">
-              <Input type="datetime-local" value={draft.preferred1 ?? ''} onChange={(e) => setDraft((d) => ({ ...d, preferred1: e.target.value }))} />
-              <Input type="datetime-local" value={draft.preferred2 ?? ''} onChange={(e) => setDraft((d) => ({ ...d, preferred2: e.target.value }))} />
-              <Input type="datetime-local" value={draft.preferred3 ?? ''} onChange={(e) => setDraft((d) => ({ ...d, preferred3: e.target.value }))} />
-            </div>
+            {!draft.frequencyPerWeek ? (
+              <p className="mt-1 text-sm text-lpa-mutedFg">Select a frequency to choose your preferred days and times.</p>
+            ) : (
+              <>
+                <p className="mt-1 text-sm text-lpa-mutedFg">
+                  Choose exactly {draft.frequencyPerWeek} day{draft.frequencyPerWeek === 1 ? '' : 's'} and a preferred time for each.
+                </p>
+
+                <div className="mt-3 grid gap-3 sm:grid-cols-7">
+                  {DAY_OPTIONS.map((dOpt) => {
+                    const checked = draft.preferredDays.includes(dOpt.key);
+                    const atLimit = draft.preferredDays.length >= Number(draft.frequencyPerWeek);
+                    const disabled = !checked && atLimit;
+                    return (
+                      <label
+                        key={dOpt.key}
+                        className={`flex items-center gap-2 rounded-lpa border border-lpa-cardBorder bg-lpa-bg px-3 py-2 text-sm ${
+                          disabled ? 'opacity-60' : ''
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={checked}
+                          disabled={disabled}
+                          onChange={(e) => {
+                            const isChecked = e.target.checked;
+                            setDraft((prev) => {
+                              if (!prev.frequencyPerWeek) return prev;
+
+                              if (isChecked) {
+                                if (prev.preferredDays.length >= Number(prev.frequencyPerWeek)) return prev;
+                                return { ...prev, preferredDays: [...prev.preferredDays, dOpt.key] };
+                              }
+
+                              const nextDays = prev.preferredDays.filter((x) => x !== dOpt.key);
+                              const nextTimes = { ...prev.preferredTimesByDay };
+                              delete nextTimes[dOpt.key];
+                              return { ...prev, preferredDays: nextDays, preferredTimesByDay: nextTimes };
+                            });
+                          }}
+                        />
+                        <span className="font-semibold">{dOpt.label}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {draft.preferredDays.map((day) => {
+                    const timeOptions = buildHalfHourTimes();
+                    const selectedTime = draft.preferredTimesByDay[day] ?? '';
+                    return (
+                      <label key={day} className="text-sm">
+                        <div className="font-semibold">{day} time</div>
+                        <select
+                          className="mt-2 w-full rounded-lpa border border-lpa-cardBorder bg-lpa-bg px-3 py-2"
+                          value={selectedTime}
+                          onChange={(e) =>
+                            setDraft((prev) => ({
+                              ...prev,
+                              preferredTimesByDay: { ...prev.preferredTimesByDay, [day]: e.target.value },
+                            }))
+                          }
+                        >
+                          <option value="">Select time…</option>
+                          {timeOptions.map((t) => (
+                            <option key={`${day}-${t.value}`} value={t.value}>
+                              {t.label}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                    );
+                  })}
+                </div>
+              </>
+            )}
           </div>
 
           <div className="mt-6">
@@ -187,10 +312,6 @@ export default function BookPage() {
             )}
             {status === 'error' && <div className="text-sm text-red-300">Could not submit booking.</div>}
           </div>
-
-          <p className="mt-3 text-xs text-lpa-mutedFg">
-            This is a scaffold: payment authorization + manual capture is handled by Firebase Functions.
-          </p>
         </div>
 
         <div className="rounded-lpa border border-lpa-cardBorder bg-lpa-card p-6">
@@ -244,7 +365,7 @@ export default function BookPage() {
                       ))}
                     </div>
                     <div className="mt-2 text-xs text-lpa-mutedFg">
-                      (Matrix sourced from the pricing PDF extraction.)
+                      Prices shown for reference.
                     </div>
                   </details>
                 </div>

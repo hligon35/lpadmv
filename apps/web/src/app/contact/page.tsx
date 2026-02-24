@@ -73,7 +73,7 @@ export default function ContactPage() {
         </div>
 
         <p className="text-xs text-lpa-mutedFg">
-          This form calls a Firebase Function email handler via the Next.js API route `/api/contact`.
+          We typically respond within 1–2 business days.
         </p>
       </form>
     </div>

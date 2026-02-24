@@ -6,7 +6,7 @@ export default function DrillsTab() {
     <View style={styles.container}>
       <Text style={styles.title}>DRILLS</Text>
       <Text style={styles.subtitle}>
-        Drill library scaffold. Populate from Firestore collection `drills`.
+        Explore drill breakdowns, progressions, and coaching points to sharpen fundamentals and build consistency.
       </Text>
     </View>
   );
