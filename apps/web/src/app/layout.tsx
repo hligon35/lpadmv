@@ -9,6 +9,7 @@ const bebas = Bebas_Neue({ subsets: ["latin"], weight: "400", variable: "--font-
 export const metadata: Metadata = {
   title: "Life Prep Academy DMV",
   description: "Leadership and athletic development through training.",
+  metadataBase: new URL("https://lifeprepacademydmv.com"),
   icons: {
     icon: "/lpadmvLogo.PNG",
     apple: "/lpadmvLogo.PNG",

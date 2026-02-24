@@ -153,7 +153,7 @@ It finds the matching Stripe Price by metadata (created by the pricing sync scri
 Env vars required on the functions runtime:
 
 - `STRIPE_SECRET_KEY`
-- `APP_BASE_URL` (or `NEXT_PUBLIC_APP_BASE_URL`) for success/cancel URLs
+- `APP_BASE_URL` (or `NEXT_PUBLIC_APP_BASE_URL`) for success/cancel URLs (example: https://lifeprepacademydmv.com)
 
 Local emulator (after configuring Firebase in this repo):
 
