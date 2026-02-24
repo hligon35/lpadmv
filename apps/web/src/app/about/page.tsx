@@ -9,7 +9,7 @@ export default function AboutPage() {
           OUR STORY
         </h1>
         <p className="max-w-3xl text-lpa-mutedFg">
-          Life Prep Academy (LPA) is built on the belief that athletic development and leadership development are inseparable.
+          Life Prep Academy is built on the belief that athletic development and leadership development are inseparable.
           We train the whole athlete: skill, strength, mindset, and character.
         </p>
         <p className="max-w-3xl text-lpa-mutedFg">
