@@ -1,5 +1,22 @@
+import type { Metadata } from 'next';
 import { ButtonLink } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
+import { SITE_URL } from '../lib/siteUrl';
+
+export const metadata: Metadata = {
+  title: 'Athletic Training & Leadership Development',
+  description: 'Life Prep Academy DMV provides leadership-first athletic training, strength, and performance development in the DMV.',
+  alternates: { canonical: '/' },
+  openGraph: {
+    title: 'Athletic Training & Leadership Development',
+    description: 'Leadership-first athletic training, strength, and performance development in the DMV.',
+    url: `${SITE_URL}/`,
+  },
+  twitter: {
+    title: 'Athletic Training & Leadership Development',
+    description: 'Leadership-first athletic training, strength, and performance development in the DMV.',
+  },
+};
 
 export default function Home() {
   return (

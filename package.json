@@ -2,6 +2,7 @@
   "name": "lpa-dmv",
   "private": true,
   "dependencies": {
+    "firebase": "^12.9.0",
     "stripe": "^16.0.0"
   },
   "workspaces": [

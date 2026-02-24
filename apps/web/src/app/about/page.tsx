@@ -1,4 +1,21 @@
 import Image from 'next/image';
+import type { Metadata } from 'next';
+import { SITE_URL } from '../../lib/siteUrl';
+
+export const metadata: Metadata = {
+  title: 'About',
+  description: 'Learn about Life Prep Academy DMV—our mission, training approach, and founder-driven purpose.',
+  alternates: { canonical: '/about' },
+  openGraph: {
+    title: 'About',
+    description: 'Learn about Life Prep Academy DMV—our mission, training approach, and founder-driven purpose.',
+    url: `${SITE_URL}/about`,
+  },
+  twitter: {
+    title: 'About',
+    description: 'Learn about Life Prep Academy DMV—our mission, training approach, and founder-driven purpose.',
+  },
+};
 
 export default function AboutPage() {
   return (

@@ -57,7 +57,7 @@ export default function AdminPage() {
     <div className="space-y-8">
       <header className="space-y-3">
         <div className="text-sm font-semibold text-lpa-accent">Admin</div>
-        <h1 className="text-5xl leading-none" style={{ fontFamily: 'var(--font-display)' }}>
+        <h1 className="font-display text-5xl leading-none">
           APPROVALS
         </h1>
         <p className="max-w-3xl text-lpa-mutedFg">

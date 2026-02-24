@@ -111,7 +111,7 @@ export default function BookPage() {
     <div className="space-y-10">
       <header className="space-y-3">
         <div className="text-sm font-semibold text-lpa-accent">Book</div>
-        <h1 className="text-5xl leading-none" style={{ fontFamily: 'var(--font-display)' }}>
+        <h1 className="font-display text-5xl leading-none">
           BOOK TRAINING
         </h1>
         <p className="max-w-3xl text-lpa-mutedFg">
@@ -139,8 +139,8 @@ export default function BookPage() {
       </section>
 
       <section className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-lpa border border-lpa-cardBorder bg-lpa-card p-6">
-          <h2 className="text-2xl font-semibold" style={{ fontFamily: 'var(--font-display)' }}>
+        <div className="order-2 rounded-lpa border border-lpa-cardBorder bg-lpa-card p-6 lg:order-1">
+          <h2 className="font-display text-2xl font-semibold">
             Training Selection
           </h2>
 
@@ -148,6 +148,8 @@ export default function BookPage() {
             <label className="text-sm">
               <div className="font-semibold">Program</div>
               <select
+                id="book-program"
+                name="program"
                 className="mt-2 w-full rounded-lpa border border-lpa-cardBorder bg-lpa-bg px-3 py-2"
                 value={draft.programKey}
                 onChange={(e) => setDraft((d) => ({ ...d, programKey: e.target.value as BookingDraft['programKey'] }))}
@@ -163,6 +165,8 @@ export default function BookPage() {
             <label className="text-sm">
               <div className="font-semibold">Frequency</div>
               <select
+                id="book-frequency"
+                name="frequency"
                 className="mt-2 w-full rounded-lpa border border-lpa-cardBorder bg-lpa-bg px-3 py-2"
                 value={draft.frequencyPerWeek}
                 onChange={(e) => {
@@ -193,6 +197,8 @@ export default function BookPage() {
             <label className="text-sm">
               <div className="font-semibold">Commitment</div>
               <select
+                id="book-commitment"
+                name="commitment"
                 className="mt-2 w-full rounded-lpa border border-lpa-cardBorder bg-lpa-bg px-3 py-2"
                 value={draft.commitmentMonths}
                 onChange={(e) => setDraft((d) => ({ ...d, commitmentMonths: Number(e.target.value) as any }))}
@@ -298,7 +304,16 @@ export default function BookPage() {
             <label className="text-sm">
               <div className="font-semibold">Email</div>
               <div className="mt-2">
-                <Input type="email" value={draft.customerEmail} onChange={(e) => setDraft((d) => ({ ...d, customerEmail: e.target.value }))} placeholder="you@example.com" required />
+                <Input
+                  id="book-email"
+                  name="email"
+                  autoComplete="email"
+                  type="email"
+                  value={draft.customerEmail}
+                  onChange={(e) => setDraft((d) => ({ ...d, customerEmail: e.target.value }))}
+                  placeholder="you@example.com"
+                  required
+                />
               </div>
             </label>
           </div>
@@ -314,8 +329,8 @@ export default function BookPage() {
           </div>
         </div>
 
-        <div className="rounded-lpa border border-lpa-cardBorder bg-lpa-card p-6">
-          <h2 className="text-2xl font-semibold" style={{ fontFamily: 'var(--font-display)' }}>
+        <div className="order-1 rounded-lpa border border-lpa-cardBorder bg-lpa-card p-6 lg:order-2">
+          <h2 className="font-display text-2xl font-semibold">
             Pricing Reference
           </h2>
           <div className="mt-4 space-y-4">

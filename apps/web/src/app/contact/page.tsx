@@ -34,7 +34,7 @@ export default function ContactPage() {
     <div className="space-y-8">
       <header className="space-y-3">
         <div className="text-sm font-semibold text-lpa-accent">Contact</div>
-        <h1 className="text-5xl leading-none" style={{ fontFamily: 'var(--font-display)' }}>
+        <h1 className="font-display text-5xl leading-none">
           LET’S CONNECT
         </h1>
         <p className="max-w-3xl text-lpa-mutedFg">
@@ -45,22 +45,22 @@ export default function ContactPage() {
       <form onSubmit={onSubmit} className="max-w-2xl space-y-4 rounded-lpa border border-lpa-cardBorder bg-lpa-card p-6">
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="text-sm font-semibold">Name</label>
+            <label className="text-sm font-semibold" htmlFor="contact-name">Name</label>
             <div className="mt-2">
-              <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" required />
+              <Input id="contact-name" name="name" autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" required />
             </div>
           </div>
           <div>
-            <label className="text-sm font-semibold">Email</label>
+            <label className="text-sm font-semibold" htmlFor="contact-email">Email</label>
             <div className="mt-2">
-              <Input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" type="email" required />
+              <Input id="contact-email" name="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" type="email" required />
             </div>
           </div>
         </div>
         <div>
-          <label className="text-sm font-semibold">Message</label>
+          <label className="text-sm font-semibold" htmlFor="contact-message">Message</label>
           <div className="mt-2">
-            <TextArea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Tell us what you’re looking for..." required />
+            <TextArea id="contact-message" name="message" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Tell us what you’re looking for..." required />
           </div>
         </div>
 

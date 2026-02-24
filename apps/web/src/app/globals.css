@@ -30,7 +30,14 @@ body {
 
 @layer utilities {
   .text-balance {
-    text-wrap: balance;
+    overflow-wrap: anywhere;
+  }
+
+  @supports (text-wrap: balance) {
+    .text-balance {
+      overflow-wrap: normal;
+      text-wrap: balance;
+    }
   }
 
   .font-display {
